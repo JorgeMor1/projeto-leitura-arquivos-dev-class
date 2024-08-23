@@ -3,27 +3,33 @@ package br.com.syonet;
 import java.util.ArrayList;
 import java.util.List;
 
+    /*  Mantive somente a classe  BufferedReaderExample, 
+    *   porque pelos testes ela lia mais rápido (em menos milesegundos) 
+    */
 import br.com.syonet.io.BufferedReaderExample;
-import br.com.syonet.io.FileInputStreamExemple;
+/*import br.com.syonet.io.FileInputStreamExemple;
 import br.com.syonet.nio.FilesReadExample;
-import br.com.syonet.nio.NIOFileReaderExemple;
+import br.com.syonet.nio.NIOFileReaderExemple;*/
 
 public class Application {
 
+
     public static void main(String[] args) {
 
-        String filePath = "meus_dados.csv";
-        List<String> csvLines = readCsvLines(filePath);
-        Converter converter = new Converter();
+        String filePath = "meus_dados.csv"; //Define o caminho do arquivo CSV
+        List<String> csvLines = readCsvLines(filePath); //Chamo o método readCsvLines() e armazeno na lista csvLines;
+        Converter converter = new Converter(); //Objeto Converter() instanciado;
+
+
         List<Filial> filiais = converter.processCsvLines(csvLines);
-        /*System.out.println("Objetos Filial convertidos:");*/
+
+        /*
+        * Tirei o for, porque só queria imprimir o resultado de uma vez, sem imprimir toda lista;
         for (Filial filial : filiais) {
             System.out.println(filial);
-        }
+        }*/
 
         Filial filialComMaiorMedia = encontrarFilialComMaiorMedia(filiais);
-        System.out.println("==================================================================");
-        System.out.println("==================================================================");
         System.out.println("==================================================================");
         System.out.println("Filial com a maior média de visitas:");        
         if (filialComMaiorMedia != null) {
@@ -32,30 +38,12 @@ public class Application {
             System.out.println("Nenhuma filial encontrada.");
         }
 
-        FileInputStreamExemple fileInputStreamExemple = new FileInputStreamExemple("meus_dados.csv");
-        fileInputStreamExemple.execute();        
-        //System.out.println("-----------------------------------------------------------------------");
         
-        //start = System.currentTimeMillis();
         BufferedReaderExample bufferedReaderExample = new BufferedReaderExample("meus_dados.csv");
         bufferedReaderExample.execute();
-
-        //System.out.println("-----------------------------------------------------------------------");
-        
-        NIOFileReaderExemple nioFileReaderExemple = new NIOFileReaderExemple("meus_dados.csv");
-        nioFileReaderExemple.execute();
-        
-        //System.out.println("-----------------------------------------------------------------------");
-
-        FilesReadExample filesReadExample = new FilesReadExample("meus_dados.csv");
-        filesReadExample.execute();
-
         /*System.out.println("-------------------------------------------------------------\n" +
                            "                                 FIM\n" +
-                           "-------------------------------------------------------------");*/
-
-        //filesReadExampleTime = System.currentTimeMillis() - start;
-        
+                           "-------------------------------------------------------------");*/        
     }
      private static List<String> readCsvLines (String filePath) {
         List<String> lines = new ArrayList<>();
